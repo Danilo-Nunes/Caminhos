@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>apCaminhosMarte</RootNamespace>
     <AssemblyName>apCaminhosMarte</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,12 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arvore\Arvore.cs" />
+    <Compile Include="Arvore\FilaLista.cs" />
+    <Compile Include="Arvore\FilaVaziaException.cs" />
+    <Compile Include="Arvore\IGravarEmArquivo.cs" />
+    <Compile Include="Arvore\IQueue.cs" />
+    <Compile Include="Arvore\ListaSimples.cs" />
+    <Compile Include="Arvore\NoArvore.cs" />
+    <Compile Include="Arvore\NoLista.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pilha\IStack.cs" />
+    <Compile Include="Pilha\PilhaCheiaException.cs" />
+    <Compile Include="Pilha\PilhaVaziaException.cs" />
+    <Compile Include="Pilha\PilhaVetor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -65,6 +78,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
