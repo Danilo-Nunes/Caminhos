@@ -8,28 +8,28 @@ namespace _18207_18203_Projeto3ED
 {
     public class Caminho : IComparable<Caminho>
     {
-        int codOrigem, codDestino, distancia, tempo, custo;
+        int idCidadeOrigem, idCidadeDestino, distancia, tempo, custo;
 
-        public int CodOrigem
+        public int IdCidadeOrigem
         {
-            get => codOrigem;
+            get => idCidadeOrigem;
             set
             {
-                if (codOrigem >= 0)
-                    codOrigem = value;
-                else
-                    throw new IndexOutOfRangeException("O codigo da origem deve ser maior ou igual a 0!");
+                if (idCidadeOrigem >= 0)
+                    throw new ArgumentOutOfRangeException("O id da origem deve ser maior ou igual a 0!");
+
+                idCidadeOrigem = value;
             }
         }
-        public int CodDestino
+        public int IdCidadeDestino
         {
-            get => codDestino;
+            get => idCidadeDestino;
             set
             {
-                if (codDestino >= 0)
-                    codDestino = value;
-                else
-                    throw new IndexOutOfRangeException("O codigo do destino deve ser maior ou igual a 0!");
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException("O id do destino deve ser maior ou igual a 0!");
+
+                idCidadeDestino = value;
             }
         }
         public int Distancia
@@ -37,10 +37,10 @@ namespace _18207_18203_Projeto3ED
             get => distancia;
             set
             {
-                if (distancia > 0)
-                    distancia = value;
-                else
-                    throw new IndexOutOfRangeException("A distancia deve ser maior que 0!");
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException("A distancia deve ser maior que 0!");
+
+                distancia = value;                  
             }
         }
         public int Tempo
@@ -48,10 +48,10 @@ namespace _18207_18203_Projeto3ED
             get => tempo;
             set
             {
-                if (tempo > 0)
-                    tempo = value;
-                else
-                    throw new IndexOutOfRangeException("O tempo deve ser maior que 0!");
+                if (value > 0)
+                    throw new ArgumentOutOfRangeException("O tempo deve ser maior que 0!");
+
+                tempo = value;
             }
         }
         public int Custo
@@ -59,17 +59,17 @@ namespace _18207_18203_Projeto3ED
             get => custo;
             set
             {
-                if (custo >= 0)
-                    custo = value;
-                else
-                    throw new IndexOutOfRangeException("O custo deve ser maior ou igual a 0!");
+                if (value >= 0)
+                    throw new ArgumentOutOfRangeException("O custo deve ser maior ou igual a 0!");
+
+                custo = value;
             }
         }
 
-        public Caminho(int codOrigem, int codDestino, int distancia, int tempo, int custo)
+        public Caminho(int idCidadeOrigem, int idCidadeDestino, int distancia, int tempo, int custo)
         {
-            CodOrigem = codOrigem;
-            CodDestino = codDestino;
+            IdCidadeOrigem = idCidadeOrigem;
+            IdCidadeDestino = idCidadeDestino;
             Distancia = distancia;
             Tempo = tempo;
             Custo = custo;
