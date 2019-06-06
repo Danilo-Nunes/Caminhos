@@ -54,7 +54,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\..\..\sem3\ED\Coisas merdas que prestam\ListaOrdenada.cs">
+      <Link>Lista\ListaOrdenada.cs</Link>
+    </Compile>
     <Compile Include="NoArvore.cs" />
+    <Compile Include="Lista\NoLista.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

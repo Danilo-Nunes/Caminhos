@@ -68,6 +68,9 @@
             this.lsbOrigem = new System.Windows.Forms.ListBox();
             this.pbMapa = new System.Windows.Forms.PictureBox();
             this.tpArvore = new System.Windows.Forms.TabPage();
+            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
+            this.btnLerArquivoCidades = new System.Windows.Forms.Button();
+            this.btnLerArquivoCaminhos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -91,6 +94,8 @@
             // 
             // tpRotas
             // 
+            this.tpRotas.Controls.Add(this.btnLerArquivoCaminhos);
+            this.tpRotas.Controls.Add(this.btnLerArquivoCidades);
             this.tpRotas.Controls.Add(this.button1);
             this.tpRotas.Controls.Add(this.dataGridView2);
             this.tpRotas.Controls.Add(this.dataGridView3);
@@ -120,9 +125,9 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1113, 183);
+            this.button1.Location = new System.Drawing.Point(1148, 183);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 23);
+            this.button1.Size = new System.Drawing.Size(121, 23);
             this.button1.TabIndex = 20;
             this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
@@ -497,6 +502,29 @@
             this.tpArvore.Text = "Árvore de Cidades";
             this.tpArvore.UseVisualStyleBackColor = true;
             // 
+            // dlgAbrir
+            // 
+            this.dlgAbrir.FileName = "openFileDialog1";
+            // 
+            // btnLerArquivoCidades
+            // 
+            this.btnLerArquivoCidades.Location = new System.Drawing.Point(1148, 19);
+            this.btnLerArquivoCidades.Name = "btnLerArquivoCidades";
+            this.btnLerArquivoCidades.Size = new System.Drawing.Size(121, 23);
+            this.btnLerArquivoCidades.TabIndex = 21;
+            this.btnLerArquivoCidades.Text = "Ler Arquivo Cidades";
+            this.btnLerArquivoCidades.UseVisualStyleBackColor = true;
+            this.btnLerArquivoCidades.Click += new System.EventHandler(this.btnLerArquivoCidades_Click);
+            // 
+            // btnLerArquivoCaminhos
+            // 
+            this.btnLerArquivoCaminhos.Location = new System.Drawing.Point(1148, 101);
+            this.btnLerArquivoCaminhos.Name = "btnLerArquivoCaminhos";
+            this.btnLerArquivoCaminhos.Size = new System.Drawing.Size(121, 23);
+            this.btnLerArquivoCaminhos.TabIndex = 22;
+            this.btnLerArquivoCaminhos.Text = "Ler Arquivo Caminhos";
+            this.btnLerArquivoCaminhos.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,6 +586,9 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.OpenFileDialog dlgAbrir;
+        private System.Windows.Forms.Button btnLerArquivoCaminhos;
+        private System.Windows.Forms.Button btnLerArquivoCidades;
     }
 }
 
