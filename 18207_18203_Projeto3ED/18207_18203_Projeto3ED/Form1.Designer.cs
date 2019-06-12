@@ -1,6 +1,6 @@
 ﻿namespace _18207_18203_Projeto3ED
 {
-    partial class Form1
+    partial class FrmCaminhos
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaminhos));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRotas = new System.Windows.Forms.TabPage();
+            this.btnLerArquivoCidades = new System.Windows.Forms.Button();
+            this.btnLerArquivoCaminhos = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,9 +51,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lisbDestino = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lisbOrigem = new System.Windows.Forms.ListBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,8 +71,7 @@
             this.pbMapa = new System.Windows.Forms.PictureBox();
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
-            this.btnLerArquivoCidades = new System.Windows.Forms.Button();
-            this.btnLerArquivoCaminhos = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -91,20 +92,22 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1308, 503);
             this.tabControl1.TabIndex = 1;
+            this.tabControl1.Enter += new System.EventHandler(this.tabControl1_Enter);
             // 
             // tpRotas
             // 
-            this.tpRotas.Controls.Add(this.btnLerArquivoCaminhos);
+            this.tpRotas.BackColor = System.Drawing.Color.White;
             this.tpRotas.Controls.Add(this.btnLerArquivoCidades);
+            this.tpRotas.Controls.Add(this.btnLerArquivoCaminhos);
             this.tpRotas.Controls.Add(this.button1);
             this.tpRotas.Controls.Add(this.dataGridView2);
             this.tpRotas.Controls.Add(this.dataGridView3);
             this.tpRotas.Controls.Add(this.label5);
             this.tpRotas.Controls.Add(this.label6);
             this.tpRotas.Controls.Add(this.label7);
-            this.tpRotas.Controls.Add(this.listBox1);
+            this.tpRotas.Controls.Add(this.lisbDestino);
             this.tpRotas.Controls.Add(this.label8);
-            this.tpRotas.Controls.Add(this.listBox2);
+            this.tpRotas.Controls.Add(this.lisbOrigem);
             this.tpRotas.Controls.Add(this.btnBuscar);
             this.tpRotas.Controls.Add(this.dataGridView1);
             this.tpRotas.Controls.Add(this.label4);
@@ -120,17 +123,37 @@
             this.tpRotas.Size = new System.Drawing.Size(1300, 477);
             this.tpRotas.TabIndex = 0;
             this.tpRotas.Text = "Rotas entre cidades";
-            this.tpRotas.UseVisualStyleBackColor = true;
+            // 
+            // btnLerArquivoCidades
+            // 
+            this.btnLerArquivoCidades.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLerArquivoCidades.Location = new System.Drawing.Point(1143, 19);
+            this.btnLerArquivoCidades.Name = "btnLerArquivoCidades";
+            this.btnLerArquivoCidades.Size = new System.Drawing.Size(121, 23);
+            this.btnLerArquivoCidades.TabIndex = 22;
+            this.btnLerArquivoCidades.Text = "Ler Arquivo Cidades";
+            this.btnLerArquivoCidades.UseVisualStyleBackColor = true;
+            // 
+            // btnLerArquivoCaminhos
+            // 
+            this.btnLerArquivoCaminhos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLerArquivoCaminhos.Location = new System.Drawing.Point(1143, 101);
+            this.btnLerArquivoCaminhos.Name = "btnLerArquivoCaminhos";
+            this.btnLerArquivoCaminhos.Size = new System.Drawing.Size(121, 23);
+            this.btnLerArquivoCaminhos.TabIndex = 21;
+            this.btnLerArquivoCaminhos.Text = "Ler Arquivo Caminhos";
+            this.btnLerArquivoCaminhos.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1148, 183);
+            this.button1.Location = new System.Drawing.Point(1143, 183);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 23);
             this.button1.TabIndex = 20;
             this.button1.Text = "Buscar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView2
             // 
@@ -284,24 +307,16 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Destino";
             // 
-            // listBox1
+            // lisbDestino
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
-            "  0 - Acheron          ",
-            "  1 - Arena           ",
-            "  2 - Arrakeen       ",
-            "  3 - Bakhuysen       ",
-            "  4 - Bradbury ",
-            "  5 - Burroughs       ",
-            "  6 - Cairo            "});
-            this.listBox1.Location = new System.Drawing.Point(930, 122);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(177, 84);
-            this.listBox1.TabIndex = 14;
+            this.lisbDestino.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lisbDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lisbDestino.FormattingEnabled = true;
+            this.lisbDestino.ItemHeight = 16;
+            this.lisbDestino.Location = new System.Drawing.Point(930, 122);
+            this.lisbDestino.Name = "lisbDestino";
+            this.lisbDestino.Size = new System.Drawing.Size(177, 84);
+            this.lisbDestino.TabIndex = 14;
             // 
             // label8
             // 
@@ -313,24 +328,16 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Origem";
             // 
-            // listBox2
+            // lisbOrigem
             // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Items.AddRange(new object[] {
-            "  0 - Acheron          ",
-            "  1 - Arena           ",
-            "  2 - Arrakeen       ",
-            "  3 - Bakhuysen       ",
-            "  4 - Bradbury ",
-            "  5 - Burroughs       ",
-            "  6 - Cairo            "});
-            this.listBox2.Location = new System.Drawing.Point(931, 19);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(177, 84);
-            this.listBox2.TabIndex = 12;
+            this.lisbOrigem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lisbOrigem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lisbOrigem.FormattingEnabled = true;
+            this.lisbOrigem.ItemHeight = 16;
+            this.lisbOrigem.Location = new System.Drawing.Point(931, 19);
+            this.lisbOrigem.Name = "lisbOrigem";
+            this.lisbOrigem.Size = new System.Drawing.Size(177, 84);
+            this.lisbOrigem.TabIndex = 12;
             // 
             // btnBuscar
             // 
@@ -483,7 +490,8 @@
             // 
             // pbMapa
             // 
-            this.pbMapa.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pbMapa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pbMapa.Image = ((System.Drawing.Image)(resources.GetObject("pbMapa.Image")));
             this.pbMapa.Location = new System.Drawing.Point(3, 3);
             this.pbMapa.Name = "pbMapa";
@@ -491,6 +499,7 @@
             this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMapa.TabIndex = 0;
             this.pbMapa.TabStop = false;
+            this.pbMapa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMapa_Paint);
             // 
             // tpArvore
             // 
@@ -506,34 +515,19 @@
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
             // 
-            // btnLerArquivoCidades
-            // 
-            this.btnLerArquivoCidades.Location = new System.Drawing.Point(1148, 19);
-            this.btnLerArquivoCidades.Name = "btnLerArquivoCidades";
-            this.btnLerArquivoCidades.Size = new System.Drawing.Size(121, 23);
-            this.btnLerArquivoCidades.TabIndex = 21;
-            this.btnLerArquivoCidades.Text = "Ler Arquivo Cidades";
-            this.btnLerArquivoCidades.UseVisualStyleBackColor = true;
-            this.btnLerArquivoCidades.Click += new System.EventHandler(this.btnLerArquivoCidades_Click);
-            // 
-            // btnLerArquivoCaminhos
-            // 
-            this.btnLerArquivoCaminhos.Location = new System.Drawing.Point(1148, 101);
-            this.btnLerArquivoCaminhos.Name = "btnLerArquivoCaminhos";
-            this.btnLerArquivoCaminhos.Size = new System.Drawing.Size(121, 23);
-            this.btnLerArquivoCaminhos.TabIndex = 22;
-            this.btnLerArquivoCaminhos.Text = "Ler Arquivo Caminhos";
-            this.btnLerArquivoCaminhos.UseVisualStyleBackColor = true;
-            // 
-            // Form1
+            // FrmCaminhos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1321, 516);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FrmCaminhos";
+            this.Text = "Caminhos Entre Cidades";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.FrmCaminhos_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tpRotas.ResumeLayout(false);
             this.tpRotas.PerformLayout();
@@ -583,12 +577,13 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lisbDestino;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lisbOrigem;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
-        private System.Windows.Forms.Button btnLerArquivoCaminhos;
         private System.Windows.Forms.Button btnLerArquivoCidades;
+        private System.Windows.Forms.Button btnLerArquivoCaminhos;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

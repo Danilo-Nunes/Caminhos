@@ -73,5 +73,10 @@ namespace _18207_18203_Projeto3ED
         {
             return IdCidade.CompareTo(other.IdCidade);
         }
+
+        public override string ToString()
+        {
+            return idCidade + " - " + nomeCidade;
+        }
     }
 }

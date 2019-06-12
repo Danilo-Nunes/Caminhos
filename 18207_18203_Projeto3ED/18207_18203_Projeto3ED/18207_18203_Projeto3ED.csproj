@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArvoreDeBusca.cs" />
+    <Compile Include="Arvore\Arvore.cs" />
     <Compile Include="Caminho.cs" />
     <Compile Include="Cidade.cs" />
     <Compile Include="Form1.cs">
@@ -54,11 +54,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\..\..\sem3\ED\Coisas merdas que prestam\ListaOrdenada.cs">
-      <Link>Lista\ListaOrdenada.cs</Link>
-    </Compile>
-    <Compile Include="NoArvore.cs" />
-    <Compile Include="Lista\NoLista.cs" />
+    <Compile Include="Arvore\NoArvore.cs" />
+    <Compile Include="Matriz\Celula.cs" />
+    <Compile Include="Matriz\MatrizEsparsa.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
