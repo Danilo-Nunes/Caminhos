@@ -157,6 +157,6 @@ using System.Threading.Tasks;
     {
       return Altura(Raiz);
     }    
-    }
-}
+  }
+
 

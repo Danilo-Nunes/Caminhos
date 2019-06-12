@@ -19,7 +19,7 @@ namespace _18207_18203_Projeto3ED
         Arvore<Cidade> cidades;
         MatrizEsparsa<Caminho> caminhos;
 
-        string filePath; // string para pegar os arquivos a partir da pasta raiz do projeto
+        //string filePath; string para pegar os arquivos a partir da pasta raiz do projeto
 
         public FrmCaminhos()
         {
@@ -39,6 +39,11 @@ namespace _18207_18203_Projeto3ED
         private void Form1_Load(object sender, EventArgs e)
         {
             //LerArquivoCidades();
+        }
+
+        private void btnLerArquivoCidades_Click(object sender, EventArgs e)
+        {
+            LerArquivoCidades();
         }
 
         private void LerArquivoCidades()
@@ -93,7 +98,12 @@ namespace _18207_18203_Projeto3ED
                 Listar(atual.Dir);
             }
         }
-        
+
+        private void btnLerArquivoCaminhos_Click(object sender, EventArgs e)
+        {
+            LerArquivoCaminhos();
+        }
+
         private void LerArquivoCaminhos()
         {
             int inicioIdCidadeOrigem = 0;
@@ -154,7 +164,7 @@ namespace _18207_18203_Projeto3ED
             DemarcarLocalizacao(atual.Dir, g);
         }
         
-        private void button1_Click(object sender, EventArgs e)
+        private void btnProcurar_Click(object sender, EventArgs e)
         {
             int idOrigem = lisbOrigem.SelectedIndex;
             int idDestino = lisbDestino.SelectedIndex;
@@ -169,10 +179,18 @@ namespace _18207_18203_Projeto3ED
 
         private void FrmCaminhos_Resize(object sender, EventArgs e)
         {
-            pbMapa.Invalidate();
+            if (tabControl1.SelectedTab == tpRotas)
+                pbMapa.Invalidate();
+            else
+                pbArvore.Invalidate();
         }
 
         private void tabControl1_Enter(object sender, EventArgs e)
+        {
+            pbArvore.Invalidate();            
+        }
+
+        private void pbArvore_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             DesenhaArvore(true, cidades.Raiz, (int)pbMapa.Width / 2, 0, Math.PI / 2,
@@ -186,7 +204,7 @@ namespace _18207_18203_Projeto3ED
             int xf, yf;
             if (atual != null)
             {
-                Pen caneta = new Pen(Color.Red);
+                Pen caneta = new Pen(Color.Black);
                 xf = (int)Math.Round(x + Math.Cos(angulo) * comprimento);
                 yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
                 if (primeiraVez)
@@ -198,12 +216,12 @@ namespace _18207_18203_Projeto3ED
                 DesenhaArvore(false, atual.Dir, xf, yf, Math.PI / 2 - incremento,
                                                   incremento * 0.60, comprimento * 0.8, g);
                 // sleep(100);
-                SolidBrush preenchimento = new SolidBrush(Color.Blue);
+                SolidBrush preenchimento = new SolidBrush(Color.Goldenrod); // ou royalBlue
                 g.FillEllipse(preenchimento, xf - 15, yf - 15, 30, 30);
-                g.DrawString(Convert.ToString(atual.Info.ToString()), new Font("Cambria", 12),
-                              new SolidBrush(Color.Yellow), xf - 15, yf - 10);
+                g.DrawString(Convert.ToString(atual.Info.ToString()), new Font("Cambria", 10),
+                              new SolidBrush(Color.Black), xf - 15, yf - 10);
             }
-        }
+        }       
     }
 }
 

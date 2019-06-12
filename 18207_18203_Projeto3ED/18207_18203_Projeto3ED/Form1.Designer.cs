@@ -31,9 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaminhos));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRotas = new System.Windows.Forms.TabPage();
+            this.pbMapa = new System.Windows.Forms.PictureBox();
             this.btnLerArquivoCidades = new System.Windows.Forms.Button();
             this.btnLerArquivoCaminhos = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnProcurar = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,16 +69,18 @@
             this.lsbDestino = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lsbOrigem = new System.Windows.Forms.ListBox();
-            this.pbMapa = new System.Windows.Forms.PictureBox();
             this.tpArvore = new System.Windows.Forms.TabPage();
+            this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
+            this.tpArvore.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -97,9 +100,10 @@
             // tpRotas
             // 
             this.tpRotas.BackColor = System.Drawing.Color.White;
+            this.tpRotas.Controls.Add(this.pbMapa);
             this.tpRotas.Controls.Add(this.btnLerArquivoCidades);
             this.tpRotas.Controls.Add(this.btnLerArquivoCaminhos);
-            this.tpRotas.Controls.Add(this.button1);
+            this.tpRotas.Controls.Add(this.btnProcurar);
             this.tpRotas.Controls.Add(this.dataGridView2);
             this.tpRotas.Controls.Add(this.dataGridView3);
             this.tpRotas.Controls.Add(this.label5);
@@ -116,13 +120,25 @@
             this.tpRotas.Controls.Add(this.lsbDestino);
             this.tpRotas.Controls.Add(this.label1);
             this.tpRotas.Controls.Add(this.lsbOrigem);
-            this.tpRotas.Controls.Add(this.pbMapa);
             this.tpRotas.Location = new System.Drawing.Point(4, 22);
             this.tpRotas.Name = "tpRotas";
             this.tpRotas.Padding = new System.Windows.Forms.Padding(3);
             this.tpRotas.Size = new System.Drawing.Size(1300, 477);
             this.tpRotas.TabIndex = 0;
             this.tpRotas.Text = "Rotas entre cidades";
+            // 
+            // pbMapa
+            // 
+            this.pbMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbMapa.Image = ((System.Drawing.Image)(resources.GetObject("pbMapa.Image")));
+            this.pbMapa.Location = new System.Drawing.Point(0, 0);
+            this.pbMapa.Name = "pbMapa";
+            this.pbMapa.Size = new System.Drawing.Size(924, 477);
+            this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMapa.TabIndex = 23;
+            this.pbMapa.TabStop = false;
             // 
             // btnLerArquivoCidades
             // 
@@ -133,6 +149,7 @@
             this.btnLerArquivoCidades.TabIndex = 22;
             this.btnLerArquivoCidades.Text = "Ler Arquivo Cidades";
             this.btnLerArquivoCidades.UseVisualStyleBackColor = true;
+            this.btnLerArquivoCidades.Click += new System.EventHandler(this.btnLerArquivoCidades_Click);
             // 
             // btnLerArquivoCaminhos
             // 
@@ -143,17 +160,18 @@
             this.btnLerArquivoCaminhos.TabIndex = 21;
             this.btnLerArquivoCaminhos.Text = "Ler Arquivo Caminhos";
             this.btnLerArquivoCaminhos.UseVisualStyleBackColor = true;
+            this.btnLerArquivoCaminhos.Click += new System.EventHandler(this.btnLerArquivoCaminhos_Click);
             // 
-            // button1
+            // btnProcurar
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1143, 183);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnProcurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProcurar.Location = new System.Drawing.Point(1143, 183);
+            this.btnProcurar.Name = "btnProcurar";
+            this.btnProcurar.Size = new System.Drawing.Size(121, 23);
+            this.btnProcurar.TabIndex = 20;
+            this.btnProcurar.Text = "Buscar";
+            this.btnProcurar.UseVisualStyleBackColor = true;
+            this.btnProcurar.Click += new System.EventHandler(this.btnProcurar_Click);
             // 
             // dataGridView2
             // 
@@ -488,28 +506,28 @@
             this.lsbOrigem.Size = new System.Drawing.Size(177, 84);
             this.lsbOrigem.TabIndex = 1;
             // 
-            // pbMapa
-            // 
-            this.pbMapa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pbMapa.Image = ((System.Drawing.Image)(resources.GetObject("pbMapa.Image")));
-            this.pbMapa.Location = new System.Drawing.Point(3, 3);
-            this.pbMapa.Name = "pbMapa";
-            this.pbMapa.Size = new System.Drawing.Size(921, 476);
-            this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMapa.TabIndex = 0;
-            this.pbMapa.TabStop = false;
-            this.pbMapa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMapa_Paint);
-            // 
             // tpArvore
             // 
+            this.tpArvore.BackColor = System.Drawing.Color.Transparent;
+            this.tpArvore.Controls.Add(this.pbArvore);
             this.tpArvore.Location = new System.Drawing.Point(4, 22);
             this.tpArvore.Name = "tpArvore";
             this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
             this.tpArvore.Size = new System.Drawing.Size(1300, 477);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Árvore de Cidades";
-            this.tpArvore.UseVisualStyleBackColor = true;
+            // 
+            // pbArvore
+            // 
+            this.pbArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbArvore.Location = new System.Drawing.Point(7, 6);
+            this.pbArvore.Name = "pbArvore";
+            this.pbArvore.Size = new System.Drawing.Size(1287, 465);
+            this.pbArvore.TabIndex = 0;
+            this.pbArvore.TabStop = false;
+            this.pbArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pbArvore_Paint);
             // 
             // dlgAbrir
             // 
@@ -531,10 +549,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tpRotas.ResumeLayout(false);
             this.tpRotas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).EndInit();
+            this.tpArvore.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -557,9 +577,8 @@
         private System.Windows.Forms.ListBox lsbDestino;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lsbOrigem;
-        private System.Windows.Forms.PictureBox pbMapa;
         private System.Windows.Forms.TabPage tpArvore;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnProcurar;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -584,6 +603,8 @@
         private System.Windows.Forms.Button btnLerArquivoCidades;
         private System.Windows.Forms.Button btnLerArquivoCaminhos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.PictureBox pbArvore;
+        private System.Windows.Forms.PictureBox pbMapa;
     }
 }
 
