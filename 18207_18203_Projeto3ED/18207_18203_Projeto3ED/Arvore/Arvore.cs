@@ -49,17 +49,19 @@ using System.Threading.Tasks;
 
     public void Incluir(Dado incluido)    // inclusão usando o método de pesquisa binária
     {
-      if (Existe(incluido))
-         throw new Exception("Informação repetida");
-      else
-      {
         var novoNo = new NoArvore<Dado>(incluido);
-        if (incluido.CompareTo(antecessor.Info) < 0)
-          antecessor.Esq = novoNo;
-        else
-          antecessor.Dir = novoNo;
-        quantosNos++;
-      }
+        if (raiz == null)
+            raiz = novoNo;
+        else if (Existe(incluido))
+            throw new Exception("Informação repetida");
+          else
+          {
+            if (incluido.CompareTo(antecessor.Info) < 0) //?
+              antecessor.Esq = novoNo;
+            else
+              antecessor.Dir = novoNo;
+            quantosNos++;
+          }
     }
 
     /// exercício 1

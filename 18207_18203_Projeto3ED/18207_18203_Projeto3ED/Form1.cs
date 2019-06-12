@@ -52,7 +52,7 @@ namespace _18207_18203_Projeto3ED
             int tamanhoIdCidade = 3;
             int inicioNomeCidade = tamanhoIdCidade;
             int tamanhoNomeCidade = 15;
-            int inicioCoordenadaX = tamanhoIdCidade + inicioIdCidade;
+            int inicioCoordenadaX = inicioNomeCidade + tamanhoNomeCidade;
             int tamanhoCoordenadaX = 5;
             int inicioCoordenadaY = inicioCoordenadaX + tamanhoCoordenadaX;
             int tamanhoCoordenadaY = 5;
@@ -190,13 +190,6 @@ namespace _18207_18203_Projeto3ED
             pbArvore.Invalidate();            
         }
 
-        private void pbArvore_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            DesenhaArvore(true, cidades.Raiz, (int)pbMapa.Width / 2, 0, Math.PI / 2,
-                                 Math.PI / 2.5, 300, g);
-        }
-
         private void DesenhaArvore(bool primeiraVez, NoArvore<Cidade> atual,
                  int x, int y, double angulo, double incremento,
                  double comprimento, Graphics g)
@@ -221,7 +214,14 @@ namespace _18207_18203_Projeto3ED
                 g.DrawString(Convert.ToString(atual.Info.ToString()), new Font("Cambria", 10),
                               new SolidBrush(Color.Black), xf - 15, yf - 10);
             }
-        }       
+        }
+
+        private void pbArvore_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            DesenhaArvore(true, cidades.Raiz, (int)pbMapa.Width / 2, 0, Math.PI / 2,
+                                 Math.PI / 2.5, 300, g);
+        }
     }
 }
 

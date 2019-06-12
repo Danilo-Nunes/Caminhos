@@ -70,6 +70,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lsbOrigem = new System.Windows.Forms.ListBox();
             this.tpArvore = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -80,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tpArvore.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).BeginInit();
             this.SuspendLayout();
             // 
@@ -509,23 +511,34 @@
             // tpArvore
             // 
             this.tpArvore.BackColor = System.Drawing.Color.Transparent;
-            this.tpArvore.Controls.Add(this.pbArvore);
+            this.tpArvore.Controls.Add(this.panel1);
             this.tpArvore.Location = new System.Drawing.Point(4, 22);
             this.tpArvore.Name = "tpArvore";
             this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
             this.tpArvore.Size = new System.Drawing.Size(1300, 477);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Árvore de Cidades";
+            this.tpArvore.AutoScroll = true;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pbArvore);
+            this.panel1.Location = new System.Drawing.Point(3, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1294, 468);
+            this.panel1.TabIndex = 0;
             // 
             // pbArvore
             // 
             this.pbArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbArvore.Location = new System.Drawing.Point(7, 6);
+            this.pbArvore.Location = new System.Drawing.Point(14, 3);
             this.pbArvore.Name = "pbArvore";
             this.pbArvore.Size = new System.Drawing.Size(1287, 465);
-            this.pbArvore.TabIndex = 0;
+            this.pbArvore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbArvore.TabIndex = 1;
             this.pbArvore.TabStop = false;
             this.pbArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pbArvore_Paint);
             // 
@@ -554,6 +567,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tpArvore.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).EndInit();
             this.ResumeLayout(false);
 
@@ -603,8 +618,9 @@
         private System.Windows.Forms.Button btnLerArquivoCidades;
         private System.Windows.Forms.Button btnLerArquivoCaminhos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.PictureBox pbArvore;
         private System.Windows.Forms.PictureBox pbMapa;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pbArvore;
     }
 }
 
