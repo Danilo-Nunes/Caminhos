@@ -59,6 +59,13 @@ namespace _18207_18203_Projeto3ED
             this.custo = cam.custo;
         }
 
+        public Caminho Clone()
+        {
+            Caminho clone = new Caminho(this);
+
+            return clone;
+        }
+
         public int CompareTo(Caminho other)
         {
             return distancia.CompareTo(other.distancia);

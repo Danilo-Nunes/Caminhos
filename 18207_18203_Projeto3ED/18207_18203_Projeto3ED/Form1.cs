@@ -217,23 +217,24 @@ namespace _18207_18203_Projeto3ED
             while (atual.Valor != null)
             {
                 cidades.Existe(new Cidade(procurado, "", 0, 0), ref cidadeAtual);
-                //if (qtosCaminhos > 2)
-                //    return;
+
                 if (cidades.Existe(new Cidade(atual.Valor.IdCidadeOrigem, "", 0, 0), ref cid))
                 {
-                    if (cid.Info.IdCidade == 20)
-                        Console.WriteLine("Aqui");
+                    if (jaPercorrido.CidadesVisitadas.ExisteDesordenado(cidadeAtual.Info))
+                        Console.WriteLine();
 
                     if (atual.Valor.IdCidadeOrigem != origem.Info.IdCidade)
                     {
-                        if (!jaPercorrido.CidadesVisitadas.ExisteDesordenado(cid.Info))
+                        if (!jaPercorrido.CidadesVisitadas.ExisteDesordenado(cid.Info)
+                            && !jaPercorrido.CidadesVisitadas.ExisteDesordenado(cidadeAtual.Info))
                         {
-                            jaPercorrido.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
-                            jaPercorrido.Distancia += atual.Valor.Distancia;
-                            jaPercorrido.Custo += atual.Valor.Custo;
-                            jaPercorrido.Tempo += atual.Valor.Tempo;
+                            Caminho Aux = new Caminho(jaPercorrido);
+                            Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
+                            Aux.Distancia += atual.Valor.Distancia;
+                            Aux.Custo += atual.Valor.Custo;
+                            Aux.Tempo += atual.Valor.Tempo;
 
-                            VaiPara(ref cam, jaPercorrido, origem, cid.Info.IdCidade);
+                            VaiPara(ref cam, Aux, origem, cid.Info.IdCidade);
                         }
                     }
                     else
