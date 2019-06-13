@@ -200,7 +200,7 @@ using System.Windows.Forms;
                 atual = atual.Direita;
             }
 
-            if (atual.Valor.Equals(0) || atual.Coluna > coluna) // caso seja uma célula vazia e a coluna maior que a desejada
+            if (atual.Coluna > coluna) // caso seja uma célula vazia e a coluna maior que a desejada
             {
                 Celula<Dado> nova = new Celula<Dado>(elemento, linha, coluna); // cria célula a ser inserida na matriz
 

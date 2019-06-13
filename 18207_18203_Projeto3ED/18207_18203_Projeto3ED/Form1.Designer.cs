@@ -74,6 +74,8 @@
             this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dgvTestes = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
@@ -83,6 +85,8 @@
             this.tpArvore.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTestes)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -92,6 +96,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tpRotas);
             this.tabControl1.Controls.Add(this.tpArvore);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -141,6 +146,7 @@
             this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMapa.TabIndex = 23;
             this.pbMapa.TabStop = false;
+            this.pbMapa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMapa_Paint);
             // 
             // btnLerArquivoCidades
             // 
@@ -510,6 +516,7 @@
             // 
             // tpArvore
             // 
+            this.tpArvore.AutoScroll = true;
             this.tpArvore.BackColor = System.Drawing.Color.Transparent;
             this.tpArvore.Controls.Add(this.panel1);
             this.tpArvore.Location = new System.Drawing.Point(4, 22);
@@ -518,7 +525,6 @@
             this.tpArvore.Size = new System.Drawing.Size(1300, 477);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Árvore de Cidades";
-            this.tpArvore.AutoScroll = true;
             // 
             // panel1
             // 
@@ -546,6 +552,25 @@
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dgvTestes);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1300, 477);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dgvTestes
+            // 
+            this.dgvTestes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTestes.Location = new System.Drawing.Point(38, 17);
+            this.dgvTestes.Name = "dgvTestes";
+            this.dgvTestes.Size = new System.Drawing.Size(240, 150);
+            this.dgvTestes.TabIndex = 0;
+            // 
             // FrmCaminhos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -570,6 +595,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTestes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -621,6 +648,8 @@
         private System.Windows.Forms.PictureBox pbMapa;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbArvore;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dgvTestes;
     }
 }
 

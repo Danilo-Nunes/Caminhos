@@ -27,32 +27,37 @@ using System.Threading.Tasks;
       set { antecessor = value; }
     }
 
-    public bool Existe(Dado procurado)  // pesquisa binária não recursiva
+    public bool Existe(Dado procurado, ref NoArvore<Dado> proc)  // pesquisa binária não recursiva
     {
       antecessor = null;
       atual = Raiz;
       while (atual != null)
       {
-        if (atual.Info.CompareTo(procurado) == 0)
-           return true;
-        else
-        {
-          antecessor = atual;
-          if (procurado.CompareTo(atual.Info) < 0)
-            atual = atual.Esq; // Desloca à esquerda
-          else
-            atual = atual.Dir; // Desloca à direita
-        }
+            if (atual.Info.CompareTo(procurado) == 0)
+            {
+                proc = atual;
+                return true;
+            }
+            else
+            {
+                antecessor = atual;
+                if (procurado.CompareTo(atual.Info) < 0)
+                    atual = atual.Esq; // Desloca à esquerda
+                else
+                    atual = atual.Dir; // Desloca à direita
+            }
       }
       return false; // Se atual == null, a chave não existe mas antecessor aponta o pai 
     }
+
+
 
     public void Incluir(Dado incluido)    // inclusão usando o método de pesquisa binária
     {
         var novoNo = new NoArvore<Dado>(incluido);
         if (raiz == null)
             raiz = novoNo;
-        else if (Existe(incluido))
+        else if (Existe(incluido, ref atual))
             throw new Exception("Informação repetida");
           else
           {

@@ -15,7 +15,7 @@ namespace _18207_18203_Projeto3ED
             get => idCidadeOrigem;
             set
             {
-                if (idCidadeOrigem >= 0)
+                if (value < 0)
                     throw new ArgumentOutOfRangeException("O id da origem deve ser maior ou igual a 0!");
 
                 idCidadeOrigem = value;
@@ -48,7 +48,7 @@ namespace _18207_18203_Projeto3ED
             get => tempo;
             set
             {
-                if (value > 0)
+                if (value < 0)
                     throw new ArgumentOutOfRangeException("O tempo deve ser maior que 0!");
 
                 tempo = value;
@@ -59,7 +59,7 @@ namespace _18207_18203_Projeto3ED
             get => custo;
             set
             {
-                if (value >= 0)
+                if (value < 0)
                     throw new ArgumentOutOfRangeException("O custo deve ser maior ou igual a 0!");
 
                 custo = value;
