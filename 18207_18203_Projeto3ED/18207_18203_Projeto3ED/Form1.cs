@@ -185,21 +185,21 @@ namespace _18207_18203_Projeto3ED
 
 
 
-            if (idOrigem == idDestino)
+            if (idOrigem == idDestino) //Caso o usuário já esteja na cidade escolhida como destino
                 MessageBox.Show("Você chegou a seu destino, '-'", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 Cidade cid = new Cidade(idOrigem, "", 0,0);
                 NoArvore<Cidade> proc = new NoArvore<Cidade>();
-                cidades.Existe(cid, ref proc);
+                cidades.Existe(cid, ref proc); //Procura-se a Cidade de origem na Árvore para se ter acesso as devidas informações
                 CriaCaminho(proc, idDestino);
             }
         }
 
         private void CriaCaminho(NoArvore<Cidade> origem, int procurado)
         {
-            ListaSimples<Caminho> cam = new ListaSimples<Caminho>();
-            Caminho inicial = new Caminho();
+            ListaSimples<Caminho> cam = new ListaSimples<Caminho>(); //Uma lista para armazenar todos os caminhos possíveis
+            Caminho inicial = new Caminho(); //Um caminho inicial apenas para a chamada do método
 
             VaiPara(ref cam, inicial, origem, procurado);
 
@@ -209,46 +209,50 @@ namespace _18207_18203_Projeto3ED
 
         private void VaiPara(ref ListaSimples<Caminho> cam, Caminho jaPercorrido, NoArvore<Cidade> origem, int procurado)
         {
-            Celula<CaminhoEntreCidades> atual = caminhos.BuscaColuna(procurado);
-            NoArvore<Cidade> cid = new NoArvore<Cidade>();
-            NoArvore<Cidade> cidadeAtual = new NoArvore<Cidade>();
-            int qtosCaminhos = 0;
+           //Como salvamos o valor dos caminhos usando da coluna para marcar a cidade de destino, pensamos em criar um método da matriz esparsa para
+           //nos retornar o primeiro membro dessa coluna, desta forma poderíamos ver todas as possibilidades de caminho que levam até a cidade escolhida
+
+            Celula<CaminhoEntreCidades> atual = caminhos.BuscaColuna(procurado); 
+            NoArvore<Cidade> cid = new NoArvore<Cidade>(); //A Cidade que nos levará até lá
+            NoArvore<Cidade> cidadeAtual = new NoArvore<Cidade>(); //A Cidade que queremos ir
           
-            while (atual.Valor != null)
+            while (atual.Valor != null) //Percorre-se até que não aja mais nenhum caminho que nos leve a cidade
             {
-                cidades.Existe(new Cidade(procurado, "", 0, 0), ref cidadeAtual);
+                cidades.Existe(new Cidade(procurado, "", 0, 0), ref cidadeAtual); //Apenas para ajustar o pârametro de referência          
 
-                if (cidades.Existe(new Cidade(atual.Valor.IdCidadeOrigem, "", 0, 0), ref cid))
+                if (cidades.Existe(new Cidade(atual.Valor.IdCidadeOrigem, "", 0, 0), ref cid))//Idem
                 {
-                    if (jaPercorrido.CidadesVisitadas.ExisteDesordenado(cidadeAtual.Info))
-                        Console.WriteLine();
-
-                    if (atual.Valor.IdCidadeOrigem != origem.Info.IdCidade)
+                    if (atual.Valor.IdCidadeOrigem != origem.Info.IdCidade) //Caso atinjamos a cidade buscada pela cidade de origem podemos encerrar o
+                                                                           //método visto que já conseguimos completar o caminho
                     {
                         if (!jaPercorrido.CidadesVisitadas.ExisteDesordenado(cid.Info)
-                            && !jaPercorrido.CidadesVisitadas.ExisteDesordenado(cidadeAtual.Info))
+                            && !jaPercorrido.CidadesVisitadas.ExisteDesordenado(cidadeAtual.Info)) //Para não passarmos por cidades repetidamente
+                                                                                                    //E Evitar loops (ir e voltar infinitamente)
                         {
-                            Caminho Aux = new Caminho(jaPercorrido);
-                            Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
+                            Caminho Aux = new Caminho(jaPercorrido); //Como ainda existem outros caminhos para se explorar, não podemos perder o valor
+                                                                     //do jaPercorrido Atual que será usado quando este metodo descongelar, então é 
+                                                                    //melhor que editemos e mandemos apenas um clone
+                            Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info); //A Cidade Atual é a cidade por qual devemos passar para chegar
+                                                                                         //ao destino (ou o próprio destino)
                             Aux.Distancia += atual.Valor.Distancia;
                             Aux.Custo += atual.Valor.Custo;
                             Aux.Tempo += atual.Valor.Tempo;
 
-                            VaiPara(ref cam, Aux, origem, cid.Info.IdCidade);
+                            VaiPara(ref cam, Aux, origem, cid.Info.IdCidade); //Chamamos o Método Novamente de Forma Recursiva
                         }
                     }
                     else
                     {
-                        Caminho Aux = new Caminho(jaPercorrido);
+                        Caminho Aux = new Caminho(jaPercorrido); //Como Anteriormente dito, mesmo que o caminho esteja completo, novos caminhos podem
+                                                                 //ser explorados, então não podemos perder os valores padrões do jaPercorrido
 
-                        Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
+                        Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info); //Inserimos a primeira cidade visitada
                         Aux.Distancia += atual.Valor.Distancia;
                         Aux.Custo += atual.Valor.Custo;
                         Aux.Tempo += atual.Valor.Tempo;
-                        Aux.CidadesVisitadas.InserirAntesDoInicio(origem.Info);
+                        Aux.CidadesVisitadas.InserirAntesDoInicio(origem.Info); // E por fim a Origem
 
-                        qtosCaminhos++;
-                        cam.InserirEmOrdem(Aux);
+                        cam.InserirEmOrdem(Aux); //Este caminho está completo e deve ser guardado
                     }
                 }
                 else
@@ -256,7 +260,7 @@ namespace _18207_18203_Projeto3ED
                     throw new Exception("Cidade Não Existe");
                 }
 
-                atual = atual.Abaixo;
+                atual = atual.Abaixo; //Continuamos a procurar um novo caminho
             }
         }
 
