@@ -45,8 +45,10 @@ using System.Windows.Forms;
             }
         }
 
-        // retorna variável booleana de verdadeiro caso a matriz não esteja alocada na memória e falso para o contrário
-        public bool Desalocada()
+    public Celula<Dado> Cabeca { get => cabeca;}
+
+    // retorna variável booleana de verdadeiro caso a matriz não esteja alocada na memória e falso para o contrário
+    public bool Desalocada()
         {
             return this.cabeca == null; // se a cabeca for nula a mtriz esta desalocada
         }
@@ -200,7 +202,7 @@ using System.Windows.Forms;
                 atual = atual.Direita;
             }
 
-            if (atual.Coluna > coluna) // caso seja uma célula vazia e a coluna maior que a desejada
+            if (atual.Valor == null || atual.Coluna > coluna) // caso seja uma célula vazia e a coluna maior que a desejada
             {
                 Celula<Dado> nova = new Celula<Dado>(elemento, linha, coluna); // cria célula a ser inserida na matriz
 
@@ -258,7 +260,42 @@ using System.Windows.Forms;
             return celColuna.Valor; // retorna o valor armazenado pela célula, caso seja nenhum, retornará 0(celula coluna = celula linha)
         }
 
-        public bool RemoverEm(int linha, int coluna)
+        public Celula<Dado> DadoDe(int linha, int coluna)
+        {
+            // condições que verificam a validade dos parâmetros passados
+            if (linha < 0 || linha > this.linhas)
+                throw new Exception("Linha fora dos limites da matriz."); // ArgumentOutOfRangeException
+
+            if (coluna < 0 || coluna > this.colunas)
+                throw new Exception("coluna fora dos limites da matriz.");
+
+            Celula<Dado> celLinha = cabeca; // iniciamos celula da linha com a cabeca
+
+            for (int i = 0; i <= linha; i++) // percorre a linha até achar a posição desejada
+                celLinha = celLinha.Abaixo;
+
+            Celula<Dado> celColuna = celLinha.Direita; // inicia a célula da coluna, onde percorreremos 
+
+            while (celColuna.Coluna < coluna && celColuna != celLinha) // percorre a coluna até achar a posição desejada 
+                celColuna = celColuna.Direita;
+
+            return celColuna; // retorna o valor armazenado pela célula, caso seja nenhum, retornará 0(celula coluna = celula linha)
+        }
+
+
+    public Celula<Dado> BuscaColuna(int col)
+    {
+        Celula<Dado> celColuna = cabeca;
+
+        for (int i = 0; i <= col; i++)
+            celColuna = celColuna.Direita;
+
+        celColuna = celColuna.Abaixo;
+
+        return celColuna;
+    }
+
+    public bool RemoverEm(int linha, int coluna)
         {
             // condições que verificam a validade dos parâmetros passados
             if (linha < 0 || linha > this.linhas)

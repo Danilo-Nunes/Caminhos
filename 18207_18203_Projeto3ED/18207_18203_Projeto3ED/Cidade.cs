@@ -25,13 +25,7 @@ namespace _18207_18203_Projeto3ED
         public string NomeCidade
         {
             get => nomeCidade;
-            set
-            {
-                if (value == "" || value == null)
-                    throw new ArgumentOutOfRangeException("O nome da Cidade deve ser diferente de cadeia vazia!");
-
-                nomeCidade = value;
-            }
+            set => nomeCidade = value;  
         }
         public int CoordenadaX
         {

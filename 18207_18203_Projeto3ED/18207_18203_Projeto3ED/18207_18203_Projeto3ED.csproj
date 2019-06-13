@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Arvore\Arvore.cs" />
     <Compile Include="Caminho.cs" />
+    <Compile Include="CaminhoEntreCidades.cs" />
     <Compile Include="Cidade.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -55,6 +56,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Arvore\NoArvore.cs" />
+    <Compile Include="Lista\ListaSimples.cs" />
+    <Compile Include="Lista\NoLista.cs" />
     <Compile Include="Matriz\Celula.cs" />
     <Compile Include="Matriz\MatrizEsparsa.cs" />
     <Compile Include="Program.cs" />
@@ -71,6 +74,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Caminho.csw" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

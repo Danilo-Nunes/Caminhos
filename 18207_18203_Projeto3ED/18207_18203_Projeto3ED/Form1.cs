@@ -17,7 +17,7 @@ namespace _18207_18203_Projeto3ED
         decimal proporcaoLargura;
 
         Arvore<Cidade> cidades;
-        MatrizEsparsa<Caminho> caminhos;
+        MatrizEsparsa<CaminhoEntreCidades> caminhos;
 
         //string filePath; string para pegar os arquivos a partir da pasta raiz do projeto
 
@@ -39,6 +39,7 @@ namespace _18207_18203_Projeto3ED
         private void Form1_Load(object sender, EventArgs e)
         {
             LerArquivoCidades();
+            LerArquivoCaminhos();
         }
 
         private void btnLerArquivoCidades_Click(object sender, EventArgs e)
@@ -82,7 +83,7 @@ namespace _18207_18203_Projeto3ED
                 Listar(cidades.Raiz);
 
                 int qtasCidades = cidades.QuantosDados;
-                caminhos = new MatrizEsparsa<Caminho>(qtasCidades, qtasCidades);
+                caminhos = new MatrizEsparsa<CaminhoEntreCidades>(qtasCidades, qtasCidades);
                 
                 pbMapa.Invalidate();              
             //}
@@ -104,7 +105,7 @@ namespace _18207_18203_Projeto3ED
 
         private void btnLerArquivoCaminhos_Click(object sender, EventArgs e)
         {
-            LerArquivoCaminhos();
+            
         }
 
         private void LerArquivoCaminhos()
@@ -135,8 +136,10 @@ namespace _18207_18203_Projeto3ED
                     int tempo = int.Parse(linha.Substring(inicioTempo, tamanhoTempo));
                     int custo = int.Parse(linha.Substring(inicioCusto, tamanhoCusto));
 
-                    Caminho caminho = new Caminho(idCidadeOrigem, idCidadeDestino, distancia, tempo, custo);
-                    caminhos.InserirElemento(caminho, idCidadeOrigem, idCidadeDestino);
+                    CaminhoEntreCidades caminho = new CaminhoEntreCidades(idCidadeOrigem, idCidadeDestino, distancia, tempo, custo);
+                    CaminhoEntreCidades caminhoInverso = new CaminhoEntreCidades(idCidadeDestino, idCidadeOrigem, distancia, tempo, custo);
+                    caminhos.InserirElemento(caminho, idCidadeOrigem, idCidadeDestino); //Guardamos o valor de dois caminhos porque pode-se ir e voltar pelo mesmo caminho
+                    caminhos.InserirElemento(caminhoInverso, idCidadeDestino, idCidadeOrigem);
                 }
                 arquivoCaminhos.Close();
 
@@ -148,6 +151,7 @@ namespace _18207_18203_Projeto3ED
         {
             Graphics g = e.Graphics;
             DemarcarLocalizacao(cidades.Raiz, g);
+            //DesenhaCaminhos(g, caminhos.DadoDe(0,8));
         }
 
         private void DemarcarLocalizacao(NoArvore<Cidade> atual, Graphics g)
@@ -194,7 +198,60 @@ namespace _18207_18203_Projeto3ED
 
         private void CriaCaminho(NoArvore<Cidade> origem, int procurado)
         {
+            ListaSimples<Caminho> cam = new ListaSimples<Caminho>();
+            Caminho inicial = new Caminho();
+
+            VaiPara(ref cam, inicial, origem, procurado);
+
+            txtTeste.Text = cam.ToString();
             
+        }
+
+        private void VaiPara(ref ListaSimples<Caminho> cam, Caminho jaPercorrido, NoArvore<Cidade> origem, int procurado)
+        {
+            Celula<CaminhoEntreCidades> atual = caminhos.BuscaColuna(procurado);
+            NoArvore<Cidade> cid = new NoArvore<Cidade>();
+            NoArvore<Cidade> cidadeAtual = new NoArvore<Cidade>();
+          
+            while (atual.Valor != null)
+            {
+                cidades.Existe(new Cidade(procurado, "", 0, 0), ref cidadeAtual);
+                if (cidades.Existe(new Cidade(atual.Valor.IdCidadeOrigem, "", 0, 0), ref cid))
+                {
+
+                    if (atual.Valor.IdCidadeOrigem != origem.Info.IdCidade)
+                    {
+                        if (!jaPercorrido.CidadesVisitadas.ExisteDado(cid.Info))
+                        {
+                            jaPercorrido.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
+                            jaPercorrido.Distancia += atual.Valor.Distancia;
+                            jaPercorrido.Custo += atual.Valor.Custo;
+                            jaPercorrido.Tempo += atual.Valor.Tempo;
+
+                            VaiPara(ref cam, jaPercorrido, origem, cid.Info.IdCidade);
+                        }
+                    }
+                    else
+                    {
+                        Caminho Aux = new Caminho(jaPercorrido);
+
+                        Aux.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
+                        Aux.Distancia += atual.Valor.Distancia;
+                        Aux.Custo += atual.Valor.Custo;
+                        Aux.Tempo += atual.Valor.Tempo;
+                        Aux.CidadesVisitadas.InserirAntesDoInicio(origem.Info);
+
+
+                        cam.InserirEmOrdem(Aux);                       
+                    }
+                }
+                else
+                {
+                    throw new Exception("Cidade Não Existe");
+                }
+
+                atual = atual.Abaixo;
+            }
         }
 
         private void FrmCaminhos_Resize(object sender, EventArgs e)
@@ -234,6 +291,38 @@ namespace _18207_18203_Projeto3ED
                 g.DrawString(Convert.ToString(atual.Info.ToString()), new Font("Cambria", 10),
                               new SolidBrush(Color.Black), xf - 15, yf - 10);
             }
+        }
+
+        private void DesenhaCaminhos(Graphics g, Celula<CaminhoEntreCidades> cel)
+        {
+            NoArvore<Cidade> NoOrigem = new NoArvore<Cidade>();
+            NoArvore<Cidade> NoDestino = new NoArvore<Cidade>();
+
+            Cidade origem = new Cidade(cel.Linha, "", 0, 0);
+            Cidade destino = new Cidade(cel.Coluna, "", 0, 0);
+
+            cidades.Existe(origem, ref NoOrigem);
+            cidades.Existe(destino, ref NoDestino);
+
+            int x = Convert.ToInt32(NoOrigem.Info.CoordenadaX * proporcaoLargura - 5);
+            int y = Convert.ToInt32(NoOrigem.Info.CoordenadaY * proporcaoAltura - 5);
+            int xf = Convert.ToInt32(NoDestino.Info.CoordenadaX * proporcaoLargura);
+            int yf = Convert.ToInt32(NoDestino.Info.CoordenadaY * proporcaoAltura - 5);
+
+            Pen caneta = new Pen(Color.Blue);
+            g.DrawLine(caneta, x, y, xf, yf);
+
+            cel = cel.Direita;
+
+            while(cel.Valor == null)
+            {
+                cel = cel.Abaixo;
+                cel = cel.Direita;
+            }
+
+            DesenhaCaminhos(g, cel);
+
+
         }
 
         private void pbArvore_Paint(object sender, PaintEventArgs e)

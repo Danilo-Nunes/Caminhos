@@ -6,32 +6,11 @@ using System.Threading.Tasks;
 
 namespace _18207_18203_Projeto3ED
 {
-    public class Caminho : IComparable<Caminho>
+    class Caminho: IComparable<Caminho>
     {
-        int idCidadeOrigem, idCidadeDestino, distancia, tempo, custo;
+        ListaSimples<Cidade> cidadesVisitadas;
+        int distancia, tempo, custo;
 
-        public int IdCidadeOrigem
-        {
-            get => idCidadeOrigem;
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("O id da origem deve ser maior ou igual a 0!");
-
-                idCidadeOrigem = value;
-            }
-        }
-        public int IdCidadeDestino
-        {
-            get => idCidadeDestino;
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException("O id do destino deve ser maior ou igual a 0!");
-
-                idCidadeDestino = value;
-            }
-        }
         public int Distancia
         {
             get => distancia;
@@ -40,7 +19,7 @@ namespace _18207_18203_Projeto3ED
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException("A distancia deve ser maior que 0!");
 
-                distancia = value;                  
+                distancia = value;
             }
         }
         public int Tempo
@@ -65,24 +44,29 @@ namespace _18207_18203_Projeto3ED
                 custo = value;
             }
         }
-
-        public Caminho(int idCidadeOrigem, int idCidadeDestino, int distancia, int tempo, int custo)
-        {
-            IdCidadeOrigem = idCidadeOrigem;
-            IdCidadeDestino = idCidadeDestino;
-            Distancia = distancia;
-            Tempo = tempo;
-            Custo = custo;
-        }
+        internal ListaSimples<Cidade> CidadesVisitadas { get => cidadesVisitadas;}
 
         public Caminho()
         {
+            cidadesVisitadas = new ListaSimples<Cidade>();
+        }
 
+        public Caminho(Caminho cam)
+        {
+            this.cidadesVisitadas = cam.cidadesVisitadas;
+            this.distancia = cam.distancia;
+            this.tempo = cam.tempo;
+            this.custo = cam.custo;
         }
 
         public int CompareTo(Caminho other)
         {
-            return this.distancia.CompareTo(other.distancia);
+            return distancia.CompareTo(other.distancia);
+        }
+
+        public override string ToString()
+        {
+            return cidadesVisitadas.ToString() + "Tempo: " + tempo + " Distância: " + distancia + " Custo: " + custo;
         }
     }
 }

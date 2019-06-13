@@ -72,10 +72,12 @@
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pbArvore = new System.Windows.Forms.PictureBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Testes = new System.Windows.Forms.TabPage();
             this.dgvTestes = new System.Windows.Forms.DataGridView();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtTeste = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
@@ -85,8 +87,9 @@
             this.tpArvore.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).BeginInit();
-            this.tabPage1.SuspendLayout();
+            this.Testes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestes)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -96,6 +99,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tpRotas);
             this.tabControl1.Controls.Add(this.tpArvore);
+            this.tabControl1.Controls.Add(this.Testes);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
@@ -548,28 +552,50 @@
             this.pbArvore.TabStop = false;
             this.pbArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pbArvore_Paint);
             // 
-            // tabPage1
+            // Testes
             // 
-            this.tabPage1.Controls.Add(this.dgvTestes);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1300, 477);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.Testes.Controls.Add(this.dgvTestes);
+            this.Testes.Location = new System.Drawing.Point(4, 22);
+            this.Testes.Name = "Testes";
+            this.Testes.Padding = new System.Windows.Forms.Padding(3);
+            this.Testes.Size = new System.Drawing.Size(1300, 477);
+            this.Testes.TabIndex = 2;
+            this.Testes.Text = "Caminhos";
+            this.Testes.UseVisualStyleBackColor = true;
             // 
             // dgvTestes
             // 
+            this.dgvTestes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTestes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTestes.Location = new System.Drawing.Point(38, 17);
+            this.dgvTestes.Location = new System.Drawing.Point(7, 6);
             this.dgvTestes.Name = "dgvTestes";
-            this.dgvTestes.Size = new System.Drawing.Size(1050, 368);
+            this.dgvTestes.Size = new System.Drawing.Size(1287, 465);
             this.dgvTestes.TabIndex = 0;
             // 
             // dlgAbrir
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.txtTeste);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1300, 477);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Caminho";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtTeste
+            // 
+            this.txtTeste.Location = new System.Drawing.Point(172, 34);
+            this.txtTeste.Multiline = true;
+            this.txtTeste.Name = "txtTeste";
+            this.txtTeste.Size = new System.Drawing.Size(831, 272);
+            this.txtTeste.TabIndex = 0;
             // 
             // FrmCaminhos
             // 
@@ -595,8 +621,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).EndInit();
-            this.tabPage1.ResumeLayout(false);
+            this.Testes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestes)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -648,8 +676,10 @@
         private System.Windows.Forms.PictureBox pbMapa;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbArvore;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage Testes;
         private System.Windows.Forms.DataGridView dgvTestes;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox txtTeste;
     }
 }
 
