@@ -72,10 +72,10 @@
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pbArvore = new System.Windows.Forms.PictureBox();
-            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvTestes = new System.Windows.Forms.DataGridView();
+            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
@@ -548,10 +548,6 @@
             this.pbArvore.TabStop = false;
             this.pbArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pbArvore_Paint);
             // 
-            // dlgAbrir
-            // 
-            this.dlgAbrir.FileName = "openFileDialog1";
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dgvTestes);
@@ -568,8 +564,12 @@
             this.dgvTestes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTestes.Location = new System.Drawing.Point(38, 17);
             this.dgvTestes.Name = "dgvTestes";
-            this.dgvTestes.Size = new System.Drawing.Size(240, 150);
+            this.dgvTestes.Size = new System.Drawing.Size(1050, 368);
             this.dgvTestes.TabIndex = 0;
+            // 
+            // dlgAbrir
+            // 
+            this.dlgAbrir.FileName = "openFileDialog1";
             // 
             // FrmCaminhos
             // 
