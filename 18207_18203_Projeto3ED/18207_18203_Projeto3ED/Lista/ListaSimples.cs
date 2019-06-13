@@ -237,6 +237,21 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
       atual = atual.Prox;
     }
   }
+
+    public ListaSimples<Dado> Clone()
+    {
+        ListaSimples<Dado> clone = new ListaSimples<Dado>();
+
+        atual = primeiro;
+
+        while(atual != null)
+        {
+            clone.InserirAposFim(atual.Info);
+            atual = atual.Prox;
+        }
+
+        return clone;
+    }
   public void Ordenar()
   {
     NoLista<Dado> menor = null, antMenor = null, noAIncluir = null;
@@ -345,7 +360,7 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
     {
         string ret = "{ ";
         atual = primeiro;
-        while(atual == null)
+        while(atual != null)
         {
             ret += atual.Info.ToString() + " - ";
             atual = atual.Prox;

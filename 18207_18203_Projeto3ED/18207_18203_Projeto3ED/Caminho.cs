@@ -53,7 +53,7 @@ namespace _18207_18203_Projeto3ED
 
         public Caminho(Caminho cam)
         {
-            this.cidadesVisitadas = cam.cidadesVisitadas;
+            this.cidadesVisitadas = cam.cidadesVisitadas.Clone();
             this.distancia = cam.distancia;
             this.tempo = cam.tempo;
             this.custo = cam.custo;

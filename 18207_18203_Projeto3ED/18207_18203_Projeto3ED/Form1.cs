@@ -242,7 +242,8 @@ namespace _18207_18203_Projeto3ED
                         Aux.CidadesVisitadas.InserirAntesDoInicio(origem.Info);
 
 
-                        cam.InserirEmOrdem(Aux);                       
+                        cam.InserirEmOrdem(Aux);
+                        return;
                     }
                 }
                 else
