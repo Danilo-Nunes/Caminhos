@@ -74,10 +74,10 @@
             this.pbArvore = new System.Windows.Forms.PictureBox();
             this.Testes = new System.Windows.Forms.TabPage();
             this.dgvTestes = new System.Windows.Forms.DataGridView();
-            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtTeste = new System.Windows.Forms.TextBox();
+            this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tpRotas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
@@ -574,10 +574,6 @@
             this.dgvTestes.Size = new System.Drawing.Size(1287, 465);
             this.dgvTestes.TabIndex = 0;
             // 
-            // dlgAbrir
-            // 
-            this.dlgAbrir.FileName = "openFileDialog1";
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.txtTeste);
@@ -591,11 +587,17 @@
             // 
             // txtTeste
             // 
-            this.txtTeste.Location = new System.Drawing.Point(172, 34);
+            this.txtTeste.Location = new System.Drawing.Point(3, 3);
             this.txtTeste.Multiline = true;
             this.txtTeste.Name = "txtTeste";
-            this.txtTeste.Size = new System.Drawing.Size(831, 272);
+            this.txtTeste.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTeste.Size = new System.Drawing.Size(1291, 468);
             this.txtTeste.TabIndex = 0;
+            this.txtTeste.TextChanged += new System.EventHandler(this.txtTeste_TextChanged);
+            // 
+            // dlgAbrir
+            // 
+            this.dlgAbrir.FileName = "openFileDialog1";
             // 
             // FrmCaminhos
             // 

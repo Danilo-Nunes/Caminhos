@@ -103,18 +103,18 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
     // dado procurado é menor que o primeiro dado da lista:
     // portanto, dado procurado não existe
 
-    if (outroProcurado.CompareTo(primeiro.Info) < 0)
-      return false;
+    //if (outroProcurado.CompareTo(primeiro.Info) < 0)
+    //  return false;
 
-    // dado procurado é maior que o último dado da lista:
-    // portanto, dado procurado não existe
+    //// dado procurado é maior que o último dado da lista:
+    //// portanto, dado procurado não existe
 
-    if (outroProcurado.CompareTo(ultimo.Info) > 0)
-    {
-      anterior = ultimo;
-      atual = null;
-      return false;
-    }
+    //if (outroProcurado.CompareTo(ultimo.Info) > 0)
+    //{
+    //  anterior = ultimo;
+    //  atual = null;
+    //  return false;
+    //}
 
     // caso não tenha sido definido que a chave está fora dos limites de
     // chaves da lista, vamos procurar no seu interior
@@ -362,7 +362,7 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
         atual = primeiro;
         while(atual != null)
         {
-            ret += atual.Info.ToString() + " - ";
+            ret += atual.Info.ToString() + "/n";
             atual = atual.Prox;
         }
 

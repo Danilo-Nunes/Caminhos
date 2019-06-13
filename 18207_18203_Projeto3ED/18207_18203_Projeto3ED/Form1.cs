@@ -243,7 +243,6 @@ namespace _18207_18203_Projeto3ED
 
 
                         cam.InserirEmOrdem(Aux);
-                        return;
                     }
                 }
                 else
@@ -333,6 +332,10 @@ namespace _18207_18203_Projeto3ED
                                  Math.PI / 2.5, 300, g);
         }
 
+        private void txtTeste_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
