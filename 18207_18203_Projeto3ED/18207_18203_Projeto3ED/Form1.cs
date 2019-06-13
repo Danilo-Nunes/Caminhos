@@ -212,16 +212,21 @@ namespace _18207_18203_Projeto3ED
             Celula<CaminhoEntreCidades> atual = caminhos.BuscaColuna(procurado);
             NoArvore<Cidade> cid = new NoArvore<Cidade>();
             NoArvore<Cidade> cidadeAtual = new NoArvore<Cidade>();
+            int qtosCaminhos = 0;
           
             while (atual.Valor != null)
             {
                 cidades.Existe(new Cidade(procurado, "", 0, 0), ref cidadeAtual);
+                //if (qtosCaminhos > 2)
+                //    return;
                 if (cidades.Existe(new Cidade(atual.Valor.IdCidadeOrigem, "", 0, 0), ref cid))
                 {
+                    if (cid.Info.IdCidade == 20)
+                        Console.WriteLine("Aqui");
 
                     if (atual.Valor.IdCidadeOrigem != origem.Info.IdCidade)
                     {
-                        if (!jaPercorrido.CidadesVisitadas.ExisteDado(cid.Info))
+                        if (!jaPercorrido.CidadesVisitadas.ExisteDesordenado(cid.Info))
                         {
                             jaPercorrido.CidadesVisitadas.InserirAntesDoInicio(cidadeAtual.Info);
                             jaPercorrido.Distancia += atual.Valor.Distancia;
@@ -241,7 +246,7 @@ namespace _18207_18203_Projeto3ED
                         Aux.Tempo += atual.Valor.Tempo;
                         Aux.CidadesVisitadas.InserirAntesDoInicio(origem.Info);
 
-
+                        qtosCaminhos++;
                         cam.InserirEmOrdem(Aux);
                     }
                 }

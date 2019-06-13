@@ -87,6 +87,19 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
         // }
     }
 
+    public bool ExisteDesordenado(Dado outroProcurado)
+    {
+        atual = primeiro;
+        while(atual != null)
+        {
+            if (atual.Info.CompareTo(outroProcurado) == 0)
+                return true;
+
+            atual = atual.Prox;
+        }
+        return false;
+    }
+
   public bool ExisteDado(Dado outroProcurado)
   {
     anterior = null;
@@ -99,30 +112,30 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
     if (EstaVazia)
       return false;
 
-    // a lista não está vazia, possui nós
-    // dado procurado é menor que o primeiro dado da lista:
-    // portanto, dado procurado não existe
+        // a lista não está vazia, possui nós
+        // dado procurado é menor que o primeiro dado da lista:
+        // portanto, dado procurado não existe
 
-    //if (outroProcurado.CompareTo(primeiro.Info) < 0)
-    //  return false;
+        if (outroProcurado.CompareTo(primeiro.Info) < 0)
+            return false;
 
-    //// dado procurado é maior que o último dado da lista:
-    //// portanto, dado procurado não existe
+        //// dado procurado é maior que o último dado da lista:
+        //// portanto, dado procurado não existe
 
-    //if (outroProcurado.CompareTo(ultimo.Info) > 0)
-    //{
-    //  anterior = ultimo;
-    //  atual = null;
-    //  return false;
-    //}
+        if (outroProcurado.CompareTo(ultimo.Info) > 0)
+        {
+            anterior = ultimo;
+            atual = null;
+            return false;
+        }
 
-    // caso não tenha sido definido que a chave está fora dos limites de
-    // chaves da lista, vamos procurar no seu interior
+        // caso não tenha sido definido que a chave está fora dos limites de
+        // chaves da lista, vamos procurar no seu interior
 
-    // o apontador atual indica o primeiro nó da lista e consideraremos que
-    // ainda não achou a chave procurada nem chegamos ao final da lista
+        // o apontador atual indica o primeiro nó da lista e consideraremos que
+        // ainda não achou a chave procurada nem chegamos ao final da lista
 
-    bool achou = false;
+        bool achou = false;
     bool fim = false;
 
     // repete os comandos abaixo enquanto não achou o RA nem chegou ao
@@ -362,7 +375,7 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
         atual = primeiro;
         while(atual != null)
         {
-            ret += atual.Info.ToString() + "/n";
+            ret += atual.Info.ToString() + Environment.NewLine;
             atual = atual.Prox;
         }
 
