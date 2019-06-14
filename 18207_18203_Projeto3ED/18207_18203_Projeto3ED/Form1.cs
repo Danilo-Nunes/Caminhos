@@ -15,9 +15,7 @@ namespace _18207_18203_Projeto3ED
     {
         decimal proporcaoAltura;
         decimal proporcaoLargura;
-
-        string filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
-
+        
         Arvore<Cidade> cidades;
         MatrizEsparsa<CaminhoEntreCidades> caminhos;
 
@@ -33,23 +31,19 @@ namespace _18207_18203_Projeto3ED
             proporcaoLargura = pbMapa.Width / 4096m;*/
             proporcaoAltura = pbMapa.Height / pbMapa.Image.Height;
             proporcaoLargura = pbMapa.Width / pbMapa.Image.Width;
-
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta 2 pastas
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta mais 2
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LerArquivoCidades();
-            LerArquivoCaminhos();
-        }
+            string filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta 2 pastas
+            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta mais 2
 
-        private void btnLerArquivoCidades_Click(object sender, EventArgs e)
-        {
-            LerArquivoCidades();
+            LerArquivoCidades(filePath);
+            LerArquivoCaminhos(filePath);
         }
-
-        private void LerArquivoCidades()
+       
+        private void LerArquivoCidades(string filePath)
         {
             int inicioIdCidade = 0;
             int tamanhoIdCidade = 3;
@@ -101,7 +95,7 @@ namespace _18207_18203_Projeto3ED
             }
         }
        
-        private void LerArquivoCaminhos()
+        private void LerArquivoCaminhos(string filePath)
         {
             int inicioIdCidadeOrigem = 0;
             int tamanhoIdCidadeOrigem = 3;
