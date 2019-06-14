@@ -44,7 +44,11 @@ namespace _18207_18203_Projeto3ED
                 custo = value;
             }
         }
-        internal ListaSimples<Cidade> CidadesVisitadas { get => cidadesVisitadas;}
+
+        internal ListaSimples<Cidade> CidadesVisitadas
+        {
+            get => cidadesVisitadas;
+        }
 
         public Caminho()
         {

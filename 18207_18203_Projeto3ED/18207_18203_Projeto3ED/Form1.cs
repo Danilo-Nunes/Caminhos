@@ -16,6 +16,8 @@ namespace _18207_18203_Projeto3ED
         decimal proporcaoAltura;
         decimal proporcaoLargura;
 
+        string filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+
         Arvore<Cidade> cidades;
         MatrizEsparsa<CaminhoEntreCidades> caminhos;
 
@@ -26,14 +28,14 @@ namespace _18207_18203_Projeto3ED
             InitializeComponent();
 
             cidades = new Arvore<Cidade>();
-            proporcaoAltura = pbMapa.Height / 2048m;
-            proporcaoLargura = pbMapa.Width / 4096m;
-            /* poderia ser feito da seguinte maneira, mas não permitiria a reutilização senão por alterar o código
-            filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+
+            /*proporcaoAltura = pbMapa.Height / 2048m;
+            proporcaoLargura = pbMapa.Width / 4096m;*/
+            proporcaoAltura = pbMapa.Height / pbMapa.Image.Height;
+            proporcaoLargura = pbMapa.Width / pbMapa.Image.Width;
+
             filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta 2 pastas
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta mais 2 pastas
-            // na hora de ler:
-            StreamReader arquivoCidades = new StreamReader(filePath + @"\CidadesMarte.txt"); // poderia ser um TextReader(herda de StreamReader)*/
+            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName; // volta mais 2
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -61,32 +63,28 @@ namespace _18207_18203_Projeto3ED
             /*DialogResult resultado = dlgAbrir.ShowDialog();*/ // exibir a caixa de diálogo para o usuário escolher o arquivo a ser lido
                                                                 //if (resultado == DialogResult.OK) // se o usuário selecionar e abrir o arquivo
                                                                    //{
-            var filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName;
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName;
             StreamReader arquivoCidades = new StreamReader(filePath + @"\CidadesMarte.txt", System.Text.Encoding.UTF7);
-                
-                while (!arquivoCidades.EndOfStream) // ou usa ReadAllLines e joga em um vetor
-                {
-                    string linha = arquivoCidades.ReadLine();
 
-                    int idCidade = int.Parse(linha.Substring(inicioIdCidade, tamanhoIdCidade));
-                    string nomeCidade = linha.Substring(inicioNomeCidade, tamanhoNomeCidade);
-                    int coordenadaX = int.Parse(linha.Substring(inicioCoordenadaX, tamanhoCoordenadaX));
-                    int coordenadaY = int.Parse(linha.Substring(inicioCoordenadaY, tamanhoCoordenadaY));
+            while (!arquivoCidades.EndOfStream) // ou usa ReadAllLines e joga em um vetor
+            {
+                string linha = arquivoCidades.ReadLine();
 
-                    Cidade cidade = new Cidade(idCidade, nomeCidade, coordenadaX, coordenadaY);
-                    cidades.Incluir(cidade);
-                }
-                arquivoCidades.Close();
+                int idCidade = int.Parse(linha.Substring(inicioIdCidade, tamanhoIdCidade));
+                string nomeCidade = linha.Substring(inicioNomeCidade, tamanhoNomeCidade);
+                int coordenadaX = int.Parse(linha.Substring(inicioCoordenadaX, tamanhoCoordenadaX));
+                int coordenadaY = int.Parse(linha.Substring(inicioCoordenadaY, tamanhoCoordenadaY));
 
-                Listar(cidades.Raiz);
+                Cidade cidade = new Cidade(idCidade, nomeCidade, coordenadaX, coordenadaY);
+                cidades.Incluir(cidade);
+            }
+            arquivoCidades.Close();
 
-                int qtasCidades = cidades.QuantosDados;
-                caminhos = new MatrizEsparsa<CaminhoEntreCidades>(qtasCidades, qtasCidades);
-                
-                pbMapa.Invalidate();              
-            //}
+            Listar(cidades.Raiz);
+
+            int qtasCidades = cidades.QuantosDados;
+            caminhos = new MatrizEsparsa<CaminhoEntreCidades>(qtasCidades, qtasCidades);
+
+            pbMapa.Invalidate();
         }
 
         private void Listar(NoArvore<Cidade> atual)
@@ -102,12 +100,7 @@ namespace _18207_18203_Projeto3ED
                 Listar(atual.Dir);
             }
         }
-
-        private void btnLerArquivoCaminhos_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+       
         private void LerArquivoCaminhos()
         {
             int inicioIdCidadeOrigem = 0;
@@ -121,27 +114,25 @@ namespace _18207_18203_Projeto3ED
             int inicioCusto = inicioTempo + tamanhoTempo;
             int tamanhoCusto = 5;
 
-            var filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName;
-            filePath = Directory.GetParent(Directory.GetParent(filePath).FullName).FullName;
             StreamReader arquivoCaminhos = new StreamReader(filePath + @"\CaminhosEntreCidadesMarte.txt", System.Text.Encoding.UTF7);
 
-                while (!arquivoCaminhos.EndOfStream)
-                {
-                    string linha = arquivoCaminhos.ReadLine();
+            while (!arquivoCaminhos.EndOfStream)
+            {
+                string linha = arquivoCaminhos.ReadLine();
 
-                    int idCidadeOrigem = int.Parse(linha.Substring(inicioIdCidadeOrigem, tamanhoIdCidadeOrigem));
-                    int idCidadeDestino = int.Parse(linha.Substring(inicioIdCidadeDestino, tamanhoIdCidadeDestino));
-                    int distancia = int.Parse(linha.Substring(inicioDistancia, tamanhoDistancia));
-                    int tempo = int.Parse(linha.Substring(inicioTempo, tamanhoTempo));
-                    int custo = int.Parse(linha.Substring(inicioCusto, tamanhoCusto));
+                int idCidadeOrigem = int.Parse(linha.Substring(inicioIdCidadeOrigem, tamanhoIdCidadeOrigem));
+                int idCidadeDestino = int.Parse(linha.Substring(inicioIdCidadeDestino, tamanhoIdCidadeDestino));
+                int distancia = int.Parse(linha.Substring(inicioDistancia, tamanhoDistancia));
+                int tempo = int.Parse(linha.Substring(inicioTempo, tamanhoTempo));
+                int custo = int.Parse(linha.Substring(inicioCusto, tamanhoCusto));
 
-                    CaminhoEntreCidades caminho = new CaminhoEntreCidades(idCidadeOrigem, idCidadeDestino, distancia, tempo, custo);
-                    CaminhoEntreCidades caminhoInverso = new CaminhoEntreCidades(idCidadeDestino, idCidadeOrigem, distancia, tempo, custo);
-                    caminhos.InserirElemento(caminho, idCidadeOrigem, idCidadeDestino); //Guardamos o valor de dois caminhos porque pode-se ir e voltar pelo mesmo caminho
-                    caminhos.InserirElemento(caminhoInverso, idCidadeDestino, idCidadeOrigem);
-                }
-                arquivoCaminhos.Close();
+                CaminhoEntreCidades caminho = new CaminhoEntreCidades(idCidadeOrigem, idCidadeDestino, distancia, tempo, custo);
+                CaminhoEntreCidades caminhoInverso = new CaminhoEntreCidades(idCidadeDestino, idCidadeOrigem, distancia, tempo, custo);
+
+                caminhos.InserirElemento(caminho, idCidadeOrigem, idCidadeDestino); //Guardamos o valor de dois caminhos porque pode-se ir e voltar pelo mesmo caminho
+                caminhos.InserirElemento(caminhoInverso, idCidadeDestino, idCidadeOrigem);
+            }
+            arquivoCaminhos.Close();
 
             caminhos.ExibirDataGridview(dgvTestes);
             
@@ -158,12 +149,14 @@ namespace _18207_18203_Projeto3ED
         {
             if (atual.Info.IdCidade == 20)
                 Console.WriteLine("Pare aqui!");
+
             int x = Convert.ToInt32(atual.Info.CoordenadaX * proporcaoLargura - 5); 
             int y = Convert.ToInt32(atual.Info.CoordenadaY * proporcaoAltura - 5);
 
 
             SolidBrush preenchimento = new SolidBrush(Color.Black);
             Rectangle retangulo = new Rectangle(x, y, 7, 7); // tamanho e local do circulo
+
             g.FillEllipse(preenchimento, retangulo); // 5 é o raio, portanto a altura e a largura devem ser o dobro
             g.DrawEllipse(new Pen(preenchimento), retangulo); // desenha borda
 
@@ -191,6 +184,7 @@ namespace _18207_18203_Projeto3ED
             {
                 Cidade cid = new Cidade(idOrigem, "", 0,0);
                 NoArvore<Cidade> proc = new NoArvore<Cidade>();
+
                 cidades.Existe(cid, ref proc); //Procura-se a Cidade de origem na Árvore para se ter acesso as devidas informações
                 CriaCaminho(proc, idDestino);
             }
@@ -285,10 +279,13 @@ namespace _18207_18203_Projeto3ED
             if (atual != null)
             {
                 Pen caneta = new Pen(Color.Black);
+
                 xf = (int)Math.Round(x + Math.Cos(angulo) * comprimento);
                 yf = (int)Math.Round(y + Math.Sin(angulo) * comprimento);
+
                 if (primeiraVez)
                     yf = 25;
+
                 g.DrawLine(caneta, x, y, xf, yf);
                 // sleep(100);
                 DesenhaArvore(false, atual.Esq, xf, yf, Math.PI / 2 + incremento,
@@ -331,8 +328,6 @@ namespace _18207_18203_Projeto3ED
             }
 
             DesenhaCaminhos(g, cel);
-
-
         }
 
         private void pbArvore_Paint(object sender, PaintEventArgs e)
@@ -340,11 +335,6 @@ namespace _18207_18203_Projeto3ED
             Graphics g = e.Graphics;
             DesenhaArvore(true, cidades.Raiz, (int)pbMapa.Width / 2, 0, Math.PI / 2,
                                  Math.PI / 2.5, 300, g);
-        }
-
-        private void txtTeste_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
